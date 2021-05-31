@@ -1,0 +1,7 @@
+.table {
+    width: 2000px;
+}
+
+input.ng-invalid.ng-touched{
+border:1px solid red;
+}

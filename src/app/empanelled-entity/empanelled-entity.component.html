@@ -1,0 +1,153 @@
+<div class="row">
+   <div class="tbl-str mb-3 col-80 ft-pop">
+      <div class="tbl-header">
+         <div class="tbl-title"><i class="fas fa-th-large clr-black"></i> <span class="ml">Empannelled Entity</span></div>
+         <div class="btn-right">
+            <div role="group" class="btn-v">
+               <button (click)="addData()" type="button" class="btn btn-success"> + Add Entity </button>
+            </div>
+         </div>
+      </div>
+      <div class="scrollbar">
+         <table cellspacing="0" class="table">
+            <thead>
+               <tr>
+                  <th>Sr No</th>
+                  <th>Name</th>
+                  <th>Address</th>
+                  <th>Mobile</th>
+                  <th>Email</th>
+                  <th>From Date</th>
+                  <th>To Date</th>
+                  <th>Remarks</th>
+                  <th>Action</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr *ngFor="let e of empanelArr;let i=index">
+                  <td align="center">{{e.SRNO}}</td>
+                  <td align="center">{{e.NAME}}</td>
+                  <td align="center">{{e.ADDRESS}}</td>
+                  <td align="center">{{e.MOBILENO}}</td>
+                  <td align="center">{{e.EMAIL_ID}}</td>
+                  <td align="center">{{e.FROM_DATE | date:'shortDate'}}</td>
+                  <td align="center">{{e.TO_DATE | date:'shortDate'}}</td>
+                  <td align="center">{{e.REMARKS}}</td>
+                  <td align="center"><button (click)="editData(e)" title="Edit" class="c-p">Edit</button>
+                     <button (click)="delete(i)" title="delete" class="ml c-p">Delete</button>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+</div>
+
+<div class="alert-overlay ft-pop" *ngIf="shwDelete">
+   <div class="alert-cont">
+      <div class="alert-head">
+         <h2 class="alert-title"><i class="far fa-check-circle"></i> Confirm!</h2>
+         <div class="clr-g f-1 mb-1 mt-1">Are you sure you want to remove this banner?</div>
+      </div>
+      <div class="p-2 txt-r mr-1 clr-dr c-p mb-1">
+         <span (click)="cancelDelete()">Cancel</span>
+         <span (click)="deleteEmpanel()"class="ml-0">Okay</span>
+      </div>
+   </div>
+</div>
+
+<div class="alert-overlay ft-pop" *ngIf="shwEdit">
+   <div class="add-cont">
+      <div class="alert-head">
+         <h2 class="alert-title mb-0"> {{empanel.title}}</h2>
+      </div>
+      <form [formGroup]="myForm" >
+      <div class="row mt-1" >
+         <div class="col-3 ml-0">
+            <div class="mb-1 w-100 form-group" > 
+               <select class="form-control-select" formControlName="panelType">
+                  <option value="">Select Panel Type</option>
+                  <option *ngFor="let v of valuerTypeArr" [value]="v.Id" >{{v.Value}}</option>
+                     <div *ngIf="f.panelType.errors?.required">Select Panel Type</div>
+            
+               </select>
+            </div>
+            <div class="mb-1 w-100 form-group" >
+               <input appAddressValidate type="text" class="form-control f-1 w-100"  #address maxlength="100" 
+                  placeholder="Address *" formControlName="address">
+                  <div *ngIf="f.address.invalid && f.address.touched">
+                  <div *ngIf="f.address.errors?.required">Address is required</div>
+                  <div *ngIf="f.address.errors?.minlength">Min length</div>
+                   </div>
+            </div>
+            <div class="mb-1 w-100 form-group" >
+          <label for="fromDate">From Date</label>
+               <input appDateFormat type="date" class="form-control f-1 w-100" #fromDate 
+                  placeholder="From Date" name="fromDate" formControlName="fromDate">
+                  <div *ngIf="f.fromDate.invalid && f.fromDate.touched">
+                     <div *ngIf="f.fromDate.errors?.required">From Date is required</div>
+                  </div>
+            </div>
+         </div>
+         <div class="col-3 ml-0">
+            <div class="mb-1 w-100 form-group">
+               <select class="form-control-select" formControlName="region">
+                  <option value="">Select Region</option>
+                  <option *ngFor="let r of regionArr" [value]="r.Id" >{{r.Value}}</option>
+               </select>
+            </div>
+            <div class="mb-1 w-100 form-group">
+               <input appMobileNoOnly type="text" class="form-control f-1 w-100" maxlength="10" #mobNo 
+                  placeholder="Mobile Number*" id="mobNo" required formControlName="mobNo">
+                  <div *ngIf="f.mobNo.invalid && f.mobNo.touched">
+                     <div *ngIf="f.mobNo.errors?.required">Mobile No.is required</div>
+                     <div *ngIf="f.mobNo.errors?.minlength">Min length should be 10 numbers</div>
+                  </div>
+            </div>
+            <div class="mb-1 w-100 form-group" >
+               <label for="toDate">To Date</label>
+               <input appDateFormat type="date" class="form-control f-1 w-100" #toDate formControlName="toDate"
+                  placeholder="To Date" name="toDate">
+                  <div *ngIf="f.toDate.invalid && f.toDate.touched">
+                     <div *ngIf="f.toDate.errors?.required">To date is required</div>
+                  </div>
+            </div>
+         </div>
+         <div class="col-3 ml-0">
+            <div class="mb-1 w-100 form-group">
+               <input appNameValidate type="text" class="form-control f-1 w-100" #name
+                  placeholder="Name *" formControlName="name">
+                  <div *ngIf="f.name.invalid && f.name.touched">
+                     <div *ngIf="f.name.errors?.required">Name is required</div>
+                     <div *ngIf="f.name.errors?.maxlength">Maximum Length should be 20 characters</div>
+                  </div>
+            </div>
+            <div class="mb-1 w-100 form-group">
+               <input appEmailOnly type="text" class="form-control f-1 w-100"  #email 
+                  placeholder="Email" formControlName="email" >
+                  <div *ngIf="f.email.invalid && f.email.touched">
+                     <div *ngIf="f.email.errors?.required">Email is required</div>
+                     <div *ngIf="f.email.errors?.maxlength">Maximum Length should be 20 characters</div>
+                  </div>
+            </div>
+            <div class="mb-1 w-100 form-group">
+               <label for="toDate">Remarks</label>
+               <input appRemarksValidate type="text" class="form-control f-1 w-100" #remarks 
+                  placeholder="Remarks" formControlName="remarks">
+                  <div *ngIf="f.remarks.invalid && f.remarks.touched">
+                     <div *ngIf="f.remarks.errors?.required">Remarks is required</div>
+                     <div *ngIf="f.remarks.errors?.maxlength">Minimum Length should be 10 characters</div>
+                  </div>
+            </div>
+         </div>
+      </div>
+      </form>
+      <div *ngIf="empanel.errorMsg !='' && empanel.errorMsg != undefined" class="f-10 clr-dr w-100 mt-1 mb-1 ml-1"><i
+            class="fas fa-times-circle"></i>ERROR: {{empanel.errorMsg}}</div>
+      <div class="p-2 txt-r mr-1 clr-dr c-p mb-2">
+         <button (click)="submit()" class="btn-view" type="button">SAVE</button>
+         <button (click)="cancel()" class="btn-view" type="button">CANCEL</button>
+      </div>
+   </div>
+</div>
+

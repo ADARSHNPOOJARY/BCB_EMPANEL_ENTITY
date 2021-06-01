@@ -1,0 +1,81 @@
+{
+    "MainData": [
+        {
+            "SRNO": "1",
+            "NAME": "Prajakta",
+            "ADDRESS": "Bhandup",
+            "MOBILENO": "8082888835",
+            "EMAIL_ID": "prajpk@gmail.com",
+            "FROM_DATE": "2/23/21",
+            "TO_DATE": "1/31/23",
+            "REMARKS": "Remark1",
+            "VALUER_TYPE": "P",
+            "REGION": "MH",
+            "CREATED_DATE": "5/23/21",
+            "CREATED_BY": "835",
+            "CREATED_IP": "172.31.0.97"
+        },
+        {
+            "SRNO": "2",
+            "NAME": "Sanketa",
+            "ADDRESS": "Kandivali",
+            "MOBILENO": "8082888836",
+            "EMAIL_ID": "prajpk1@gmail.com",
+            "FROM_DATE": "4/30/21",
+            "TO_DATE": "6/30/23",
+            "REMARKS": "Remark2",
+            "VALUER_TYPE": "P",
+            "REGION": "OTH",
+            "CREATED_DATE": "5/23/21",
+            "CREATED_BY": "835",
+            "CREATED_IP": "172.31.0.97"
+        },
+        {
+            "SRNO": "3",
+            "NAME": "Jasmine",
+            "ADDRESS": "Thane",
+            "MOBILENO": "8082888834",
+            "EMAIL_ID": "prajpk2@gmail.com",
+            "FROM_DATE": "9/10/20",
+            "TO_DATE": "9/9/22",
+            "REMARKS": "Remark3",
+            "VALUER_TYPE": "P",
+            "REGION": "GJ",
+            "CREATED_DATE": "5/23/21",
+            "CREATED_BY": "835",
+            "CREATED_IP": "172.31.0.97"
+        }
+    ],
+    "VALUER_TYPE": [
+        {
+            "Id": "P",
+            "Value": "Panel Advocate"
+        },
+        {
+            "Id": "A",
+            "Value": "Panel Valuer"
+        },
+        {
+            "Id": "G",
+            "Value": "Gold Valuer"
+        }
+    ],
+    "REGION": [
+        {
+            "Id": "MH",
+            "Value": "Maharashtra"
+        },
+        {
+            "Id": "KA",
+            "Value": "Karnataka"
+        },
+        {
+            "Id": "GJ",
+            "Value": "Gujarat"
+        },
+        {
+            "Id": "OTH",
+            "Value": "Others"
+        }
+    ]
+}

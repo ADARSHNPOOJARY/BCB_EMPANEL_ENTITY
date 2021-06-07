@@ -1,22 +1,25 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscriber } from 'rxjs';
-import { ServicesService } from '../services.service';
+import { IEmpanel } from '../empanel';
+import { ServicesService } from '../services/services.service';
+import { DatePipe } from '@angular/common'
+
 
 
 @Component({
   selector: 'app-empanelled-entity',
   templateUrl: './empanelled-entity.component.html',
-  styleUrls: ['./empanelled-entity.component.css']
+  styleUrls: ['./empanelled-entity.component.css'],
 })
 export class EmpanelledEntityComponent implements OnInit {
-  myForm:FormGroup;
+  myForm!:FormGroup;
  
   get f(){
 return this.myForm.controls
   }
 
-  empanelArr:Array<any> = []
+  empanelArr:Array<IEmpanel>=[]
   valuerTypeArr:Array<any> = []
   regionArr:Array<any> = []
 
@@ -25,22 +28,23 @@ return this.myForm.controls
   shwEdit: boolean = false;shwDelete:boolean=false;
   
 
-  @ViewChild('panelType') panelType: ElementRef
-  @ViewChild('region') region: ElementRef
-  @ViewChild('name') name: ElementRef
-  @ViewChild('address') address: ElementRef
-  @ViewChild('mobNo') mobNo: ElementRef
-  @ViewChild('email') email: ElementRef
-  @ViewChild('fromDate') fromDate: ElementRef
-  @ViewChild('toDate') toDate: ElementRef
-  @ViewChild('remarks') remarks: ElementRef
+  
+  @ViewChild('panelType') panelType!: ElementRef
+  @ViewChild('region') region!: ElementRef
+  @ViewChild('name') name!: ElementRef
+  @ViewChild('address') address!: ElementRef
+  @ViewChild('mobNo') mobNo!: ElementRef
+  @ViewChild('email') email!: ElementRef
+  @ViewChild('fromDate') fromDate!: ElementRef
+  @ViewChild('toDate') toDate!: ElementRef
+  @ViewChild('remarks') remarks!: ElementRef
   index:any;
 
-  date=new Date()
+  
   constructor(private service:ServicesService) { 
 
     this.service.readJsonData().subscribe(
-      (response)=>{
+      (response:any)=>{
         console.log(response)
         this.empanelArr=response["MainData"];
         this.valuerTypeArr=response["VALUER_TYPE"];
@@ -89,6 +93,8 @@ return this.myForm.controls
     this.shwEdit=true
     this.empanel.title="Add Empanel Entity"
     this.empanel.errorMsg=""
+    this.myForm.patchValue({panelType:""})
+    this.myForm.patchValue({region:""})
   }
 
 editData(e:any){
@@ -101,6 +107,7 @@ editData(e:any){
     this.myForm.patchValue({address:e.ADDRESS})
     this.myForm.patchValue({mobNo:e.MOBILENO})
     this.myForm.patchValue({email:e.EMAIL_ID})
+      // let newDate=this.datePipe.transform(e.FROM_DATE,"dd/MM/yyyy")
     this.myForm.patchValue({fromDate:e.FROM_DATE})
     this.myForm.patchValue({toDate:e.TO_DATE})
     this.myForm.patchValue({remarks:e.REMARKS})
@@ -181,6 +188,7 @@ editData(e:any){
    ["FROM_DATE"]: this.myForm.get("fromDate")?.value,
    ["TO_DATE"]: this.myForm.get("toDate")?.value,
    ["REMARKS"]: this.myForm.get("remarks")?.value,
+  
     }
     this.empanelArr.push(obj)
     this.shwEdit=false

@@ -30,8 +30,8 @@
                   <td align="center">{{e.ADDRESS}}</td>
                   <td align="center">{{e.MOBILENO}}</td>
                   <td align="center">{{e.EMAIL_ID}}</td>
-                  <td align="center">{{e.FROM_DATE | date:'shortDate'}}</td>
-                  <td align="center">{{e.TO_DATE | date:'shortDate'}}</td>
+                  <td align="center">{{e.FROM_DATE | date: 'dd-MM-yyyy'}}</td>
+                  <td align="center">{{e.TO_DATE | date: 'dd-MM-yyyy'}}</td>
                   <td align="center">{{e.REMARKS}}</td>
                   <td align="center"><button (click)="editData(e)" title="Edit" class="c-p">Edit</button>
                      <button (click)="delete(i)" title="delete" class="ml c-p">Delete</button>
@@ -82,8 +82,8 @@
             </div>
             <div class="mb-1 w-100 form-group" >
           <label for="fromDate">From Date</label>
-               <input appDateFormat type="date" class="form-control f-1 w-100" #fromDate 
-                  placeholder="From Date" name="fromDate" formControlName="fromDate">
+               <input type="date" class="form-control f-1 w-100" #fromDate 
+                  placeholder="From Date" name="fromDate" formControlName="fromDate" >
                   <div *ngIf="f.fromDate.invalid && f.fromDate.touched">
                      <div *ngIf="f.fromDate.errors?.required">From Date is required</div>
                   </div>
@@ -106,7 +106,7 @@
             </div>
             <div class="mb-1 w-100 form-group" >
                <label for="toDate">To Date</label>
-               <input appDateFormat type="date" class="form-control f-1 w-100" #toDate formControlName="toDate"
+               <input type="date" class="form-control f-1 w-100" #toDate formControlName="toDate"
                   placeholder="To Date" name="toDate">
                   <div *ngIf="f.toDate.invalid && f.toDate.touched">
                      <div *ngIf="f.toDate.errors?.required">To date is required</div>

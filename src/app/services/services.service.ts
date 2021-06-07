@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { IEmpanel } from '../empanel';
 
 
 
@@ -13,9 +14,8 @@ export class ServicesService {
   constructor(private http:HttpClient) { 
   }
 
-  readJsonData():Observable<any>{
-    
-    return this.http.get(this._url)
+  readJsonData():Observable<Array<IEmpanel>>{
+    return this.http.get<Array<IEmpanel>>(this._url)
   }
   
 }

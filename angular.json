@@ -126,6 +126,126 @@
           }
         }
       }
+    },
+    "empanelEntity": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/empanel-entity",
+      "sourceRoot": "projects/empanel-entity/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/empanelEntity",
+            "index": "projects/empanel-entity/src/index.html",
+            "main": "projects/empanel-entity/src/main.ts",
+            "polyfills": "projects/empanel-entity/src/polyfills.ts",
+            "tsConfig": "projects/empanel-entity/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/empanel-entity/src/favicon.ico",
+              "projects/empanel-entity/src/assets"
+            ],
+            "styles": [
+              "projects/empanel-entity/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/empanel-entity/src/environments/environment.ts",
+                  "with": "projects/empanel-entity/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "empanelEntity:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "empanelEntity:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "empanelEntity:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/empanel-entity/src/test.ts",
+            "polyfills": "projects/empanel-entity/src/polyfills.ts",
+            "tsConfig": "projects/empanel-entity/tsconfig.spec.json",
+            "karmaConfig": "projects/empanel-entity/karma.conf.js",
+            "assets": [
+              "projects/empanel-entity/src/favicon.ico",
+              "projects/empanel-entity/src/assets"
+            ],
+            "styles": [
+              "projects/empanel-entity/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/empanel-entity/tsconfig.app.json",
+              "projects/empanel-entity/tsconfig.spec.json",
+              "projects/empanel-entity/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/empanel-entity/e2e/protractor.conf.js",
+            "devServerTarget": "empanelEntity:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "empanelEntity:serve:production"
+            }
+          }
+        }
+      }
     }
   },
   "defaultProject": "knowledgeCentre"
